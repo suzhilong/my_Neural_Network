@@ -11,9 +11,9 @@ def affine_forward(x, w, b):
   then transform it to an output vector of dimension M.
 
   Inputs:
-  - x: A numpy array containing input data, of shape (N, d_1, ..., d_k)
-  - w: A numpy array of weights, of shape (D, M)
-  - b: A numpy array of biases, of shape (M,)
+  - x: A numpy array containing input data, of shape (N, d_1, ..., d_k) #N是example的个数
+  - w: A numpy array of weights, of shape (D, M)  #D是input（神经元个数）,M是outmput（神经元个数）
+  - b: A numpy array of biases, of shape (M,) 
   
   Returns a tuple of:
   - out: output, of shape (N, M)
@@ -57,7 +57,7 @@ def affine_backward(dout, cache):
   dx = dout.dot(w.T)
   dx = dx.reshape(*x.shape)
   dw = x_rsp.T.dot(dout)
-  db = np.sum(dout, axis = 0)
+  db = np.sum(dout, axis = 0) #因为下面一层每个神经元都会用到b，所也要把梯度全部加起来
 
   return dx, dw, db
 

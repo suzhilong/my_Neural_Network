@@ -5,20 +5,26 @@ from fc_net import *
 from gradient_check import eval_numerical_gradient, eval_numerical_gradient_array
 from solver import Solver
 
-weight_scale = 1e-2
-learning_rate = 8e-3
+learning_rate = 8e-3 #3.1e-4
+weight_scale=1e-2 #2.5e-2 #1e-5
 #three-layer network with 100 units in each hidden layer
 model = FullyConnectedNet([100, 100],
-              weight_scale=weight_scale, dtype=np.float64)
+                          input_dim=4*19, #肌电信号四个通道，每个通道19个特征值
+                          num_classes=8,  #8个动作
+                          dropout=0.25, use_batchnorm=True, reg=1e-2,
+                          weight_scale=weight_scale, 
+                          dtype=np.float64
+                         )
 
 solver = Solver(model, [inputdata],
-                print_every=10, num_epochs=20, batch_size=25,
                 update_rule='sgd',
                 optim_config={
                   'learning_rate': learning_rate,
                 },
+                lr_decay=0.95,
+                print_every=10, num_epochs=20, batch_size=25,
                 verbose=True
-         )
+               )
 solver.train()
 
 #可视化

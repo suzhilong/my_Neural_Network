@@ -11,9 +11,9 @@ def affine_forward(x, w, b):
   then transform it to an output vector of dimension M.
 
   Inputs:
-  - x: A numpy array containing input data, of shape (N, d_1, ..., d_k) #N是example的个数
-  - w: A numpy array of weights, of shape (D, M)  #D是input（神经元个数）,M是outmput（神经元个数）
-  - b: A numpy array of biases, of shape (M,) 
+  - x: A numpy array containing input data, of shape (N, d_1, ..., d_k)
+  - w: A numpy array of weights, of shape (D, M)
+  - b: A numpy array of biases, of shape (M,)
   
   Returns a tuple of:
   - out: output, of shape (N, M)
@@ -57,7 +57,7 @@ def affine_backward(dout, cache):
   dx = dout.dot(w.T)
   dx = dx.reshape(*x.shape)
   dw = x_rsp.T.dot(dout)
-  db = np.sum(dout, axis = 0) #因为下面一层每个神经元都会用到b，所也要把梯度全部加起来
+  db = np.sum(dout, axis = 0)
 
   return dx, dw, db
 
@@ -604,7 +604,7 @@ def softmax_loss(x, y):
 
   Inputs:
   - x: Input data, of shape (N, C) where x[i, j] is the score for the jth class
-    for the ith input.
+    for the ith input.输入的x是评分
   - y: Vector of labels, of shape (N,) where y[i] is the label for x[i] and
     0 <= y[i] < C
 
@@ -612,7 +612,7 @@ def softmax_loss(x, y):
   - loss: Scalar giving the loss
   - dx: Gradient of the loss with respect to x
   """
-  probs = np.exp(x - np.max(x, axis=1, keepdims=True))
+  probs = np.exp(x - np.max(x, axis=1, keepdims=True))#用了减最大值的技巧，避免数值爆炸
   probs /= np.sum(probs, axis=1, keepdims=True)
   N = x.shape[0]
   loss = -np.sum(np.log(probs[np.arange(N), y])) / N

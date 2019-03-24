@@ -1,4 +1,4 @@
-from cs231n.layers import *
+from layers import *
 
 
 

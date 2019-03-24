@@ -1,7 +1,7 @@
 import numpy as np
 
-from cs231n.layers import *
-from cs231n.layer_utils import *
+from layers import *
+from layer_utils import *
 
 
 class TwoLayerNet(object):
@@ -97,6 +97,7 @@ class TwoLayerNet(object):
     # of 0.5 to simplify the expression for the gradient.                      #
     ############################################################################
     loss, dscores = softmax_loss(scores, y)
+    #正则化
     loss = loss + 0.5 * self.reg * np.sum(self.params['W1'] * self.params['W1']) + 0.5 * self.reg * np.sum(self.params['W2'] * self.params['W2'])
     dx2, dw2, db2 = affine_backward(dscores, a2_cache)
     grads['W2'] = dw2 + self.reg * self.params['W2']

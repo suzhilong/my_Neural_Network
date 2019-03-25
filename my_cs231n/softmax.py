@@ -75,6 +75,7 @@ def softmax_loss_vectorized(W, X, y, reg):
   loss = -np.sum(np.log(softmax_output[range(num_train), list(y)]))
   loss /= num_train 
   loss +=  0.5* reg * np.sum(W * W)
+  print 'loss form softmax:',loss
   
   dS = softmax_output.copy()
   dS[range(num_train), list(y)] += -1

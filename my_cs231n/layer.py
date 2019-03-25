@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import numpy as np
 
 
@@ -615,7 +616,9 @@ def softmax_loss(x, y):
   probs = np.exp(x - np.max(x, axis=1, keepdims=True))#用了减最大值的技巧，避免数值爆炸
   probs /= np.sum(probs, axis=1, keepdims=True)
   N = x.shape[0]
+  #print 'N:',N
   loss = -np.sum(np.log(probs[np.arange(N), y])) / N
+  #print 'loss:',loss
   dx = probs.copy()
   dx[np.arange(N), y] -= 1
   dx /= N

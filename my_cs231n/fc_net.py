@@ -1,6 +1,7 @@
+# -*- coding: utf-8 -*-
 import numpy as np
 
-from layers import *
+from layer import *
 from layer_utils import *
 
 
@@ -178,6 +179,7 @@ class FullyConnectedNet(object):
             self.params['beta%d'%(i+1)] = np.zeros(hd)
         layer_input_dim = hd
     self.params['W%d'%(self.num_layers)] = weight_scale * np.random.randn(layer_input_dim, num_classes)
+    #print 'params W:',self.params['W%d'%(self.num_layers)]
     self.params['b%d'%(self.num_layers)] = weight_scale * np.zeros(num_classes)
 
     # When using dropout we need to pass a dropout_param dictionary to each

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import numpy as np
 
 import optim
@@ -31,7 +32,7 @@ class Solver(object):
     'X_train': # training data
     'y_train': # training labels
     'X_val': # validation data
-    'X_train': # validation labels
+    'y_val': # validation labels
   }
   model = MyAwesomeModel(hidden_size=100, reg=10)
   solver = Solver(model, data,
@@ -208,8 +209,12 @@ class Solver(object):
       start = i * batch_size
       end = (i + 1) * batch_size
       scores = self.model.loss(X[start:end]) #########################
+      #print 'scores:',scores
+      #print 'argmax(scores)',np.argmax(scores, axis=1)
       y_pred.append(np.argmax(scores, axis=1))
+      #print y_pred
     y_pred = np.hstack(y_pred)
+    #print 'y_pred:',y_pred
     acc = np.mean(y_pred == y)
 
     return acc
